@@ -1,9 +1,11 @@
 public class ReverseLinkedList {
 
     private static Node head = null;
+    private static Node tail = null;
+    private static int listCount = 0;
 
     static class Node {
-        public Node next;
+        Node next;
         int data;
 
         public Node(int d) {
@@ -69,12 +71,90 @@ public class ReverseLinkedList {
             Node n = new Node(arr[i]);
             if (head == null) {
                 head = n;
+                tail = n;
             }
             else {
                 prev.next = n;
+                tail = n;
             }
             prev = n;
+            listCount++;
         }
+    }
+
+    public static boolean removeLinkList(int v) {
+        Node curr = head;
+        Node prev = head;
+        boolean retStatus = false;
+        while (curr.next != null) {
+            if (curr.data == v) {
+                if (prev == head) {
+                    head = curr.next;
+                }
+                else {
+                    prev.next = curr.next;
+                    curr.next = null;
+                    listCount--;
+                    break;
+                }
+
+                if (tail == curr) {
+                    tail = prev;
+                }
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        return  retStatus;
+    }
+
+    public static void appendLinkList(int v) {
+        Node n = new Node(v);
+        Node t = tail;
+        tail = n;
+        if (head == null) {
+            head = n;
+        }
+        else {
+            t.next = n;
+        }
+        listCount++;
+    }
+
+    public static void mutateOddEvenLinkList() {
+        Node hOdd = null;
+        Node tOdd = null;
+        Node hEven = null;
+        Node tEven = null;
+        Node n = head;
+        Node next = null;
+        while (n != null) {
+            next = n.next;
+            if (n.data%2 == 0) {
+                if (hEven == null) {
+                    hEven = n;
+                }
+                if (tEven != null) {
+                    tEven.next = n;
+                }
+                tEven = n;
+                tEven.next = null;
+            }
+            else {
+                if (hOdd == null) {
+                    hOdd = n;
+                }
+                if (tOdd != null) {
+                    tOdd.next = n;
+                }
+                tOdd = n;
+                tOdd.next = null;
+            }
+            n = next;
+        }
+        tOdd.next = hEven;
+        head = hOdd;
+        tail = tEven;
     }
 
     public static void printLinkedList() {
@@ -87,10 +167,19 @@ public class ReverseLinkedList {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8};
+        /*int[] arr = {1, 2, 3, 4, 5, 6, 7, 8};
         createLinkList(arr);
-        //printLinkedList();
+        appendLinkList(21);
+        printLinkedList();
+        removeLinkList(8);
+        printLinkedList();
         reverseLinkList(8);
+        printLinkedList();
+        */
+
+        int[] arr1 = {1, 2, 3, 4, 5, 6, 7, 8};
+        createLinkList(arr1);
+        mutateOddEvenLinkList();
         printLinkedList();
     }
 }

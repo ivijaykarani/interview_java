@@ -15,6 +15,10 @@ public class SuperStack<K> {
         return v1;
     }
 
+    public K peek() {
+        return stackList.get(0);
+    }
+
     public static void main(String[] args) {
         SuperStack<Integer> stack = new SuperStack<Integer>();
         stack.push(10);
