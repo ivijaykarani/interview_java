@@ -21,6 +21,22 @@ public class BinarySearchAlgorithm {
         return found;
     }
 
+    public static int binarySearch(int[] arrList, int value) {
+        int stIdx = 0;
+        int endIdx = arrList.length-1;
+        int gIdx = -1;
+        while (stIdx <= endIdx) {
+            gIdx = (stIdx+endIdx)/2;
+            if (arrList[gIdx] == value)
+                return gIdx;
+            else if (arrList[gIdx] < value)
+                stIdx = gIdx+1;
+            else
+                endIdx = gIdx-1;
+        }
+        return  -1;
+    }
+
     public static boolean recursionSearch(int[] arrList, int stIdx, int endIdx, int ele) {
         if (stIdx == endIdx) {
             return arrList[stIdx] == ele;
@@ -42,11 +58,13 @@ public class BinarySearchAlgorithm {
     }
 
     public static void main(String[] args) {
-        int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        int[] sortedArr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 23, 33 };
 
+        int srchIdx = binarySearch(sortedArr, 33);
+        System.out.println("Search Index: " + srchIdx);
         //boolean result = linearSearch(arr, 100);
         //System.out.println("element " + 5 + " found status: " + result);
-        boolean result = recursionSearch(arr, 0, arr.length-1, 10);
-        System.out.println("element " + 5 + " found status: " + result);
+        //boolean result = recursionSearch(arr, 0, arr.length-1, 10);
+        //System.out.println("element " + 5 + " found status: " + result);
     }
 }

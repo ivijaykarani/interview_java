@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 public class ReverseWordsSentence {
 
     public static String reverseSentence(String sentence) {
@@ -9,6 +11,38 @@ public class ReverseWordsSentence {
                 revSentence += " ";
         }
         return revSentence;
+    }
+
+    public static String revSentenceStack(String sentence) {
+        char[] sChars = sentence.toCharArray();
+        Stack<String> stack = new Stack<String>();
+        boolean wordStatus = true;
+        int stIdx = 0;
+        boolean stInitialized = false;
+        for (int i = 0; i < sChars.length; i++) {
+            if (sChars[i] == ' ' || (i == sChars.length-1)) {
+                int slen = i - stIdx;
+                if (i == sChars.length-1) slen+=1;
+                String word = new String(sChars, stIdx, slen);
+                stack.push(word);
+                stInitialized = false;
+            }
+            else if (!stInitialized && sChars[i] != ' ') {
+                stInitialized = true;
+                stIdx = i;
+            }
+        }
+        String retS = "";
+        boolean first = true;
+        while (!stack.empty()) {
+            if (first) {
+                retS = stack.pop();
+                first = false;
+            }
+            else
+                retS = retS + " " + stack.pop();
+        }
+        return retS;
     }
 
     public static String revSentence(String sentence) {
@@ -53,6 +87,7 @@ public class ReverseWordsSentence {
     public static void main(String[] args) {
         String sentence = "I love California";
         //System.out.println("rev sentence: " + reverseSentence(sentence));
-        System.out.println("rev sentence: " + reverseEntireSentence(sentence));
+        //System.out.println("rev sentence: " + reverseEntireSentence(sentence));
+        System.out.println("rev sentence: " + revSentenceStack(sentence));
     }
 }

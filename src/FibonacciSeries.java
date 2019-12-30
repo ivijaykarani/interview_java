@@ -16,8 +16,19 @@ public class FibonacciSeries {
         return result;
     }
 
+    public static int recursiveFibValue(int num) {
+        if (num == 0)
+            return 0;
+        if (num == 1)
+            return 1;
+        return recursiveFibValue(num-1) + recursiveFibValue(num-2);
+    }
+
     public static void main(String[] args) {
         int result = calculateFibValue(10);
         System.out.println("Result of Fib Series 10: " + result);
+
+        int result1 = recursiveFibValue(10);
+        System.out.println("Result of Fib Recursive Series 10: " + result);
     }
 }

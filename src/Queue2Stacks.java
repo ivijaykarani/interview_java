@@ -12,10 +12,24 @@ public class Queue2Stacks {
 
     public Integer dequeue() {
         if (stack2.empty()) {
-            if (stack1.empty())
-                return -1;
+            while (!stack1.empty()) {
+                stack2.push(stack1.pop());
+            }
         }
-        return 1;
+        return stack2.pop();
+    }
+
+    public Integer dequeue1Stack() {
+        return recurseDeQ();
+    }
+
+    private Integer recurseDeQ() {
+        if (stack1.size() == 1)
+            return stack1.pop();
+        int curr = stack1.pop();
+        int r = recurseDeQ();
+        stack1.push(curr);
+        return r;
     }
 
     public static void main(String[] args) {
@@ -23,12 +37,12 @@ public class Queue2Stacks {
         que.enqueue(5);
         que.enqueue(10);
         que.enqueue(15);
-        System.out.println("Item 1 : " + que.dequeue());
+        System.out.println("Item 1 : " + que.dequeue1Stack());
         que.enqueue(20);
         que.enqueue(25);
-        System.out.println("Item 2: " + que.dequeue());
-        System.out.println("Item 3: " + que.dequeue());
-        System.out.println("Item 4: " + que.dequeue());
-        System.out.println("Item 5: " + que.dequeue());
+        System.out.println("Item 2: " + que.dequeue1Stack());
+        System.out.println("Item 3: " + que.dequeue1Stack());
+        System.out.println("Item 4: " + que.dequeue1Stack());
+        System.out.println("Item 5: " + que.dequeue1Stack());
     }
 }
